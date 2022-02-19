@@ -20,9 +20,24 @@ export default function App() {
         { key: Math.random().toString(), titulo, page, porcentaje },
       ]);
     } 
-
     setShowModalLeer(false);
   };
+
+  const deleteBook = (libro) => {
+    setListTitulos((cur) => {
+      return cur.filter((lib) => lib.key !== libro);
+    })
+  };
+
+  const changeBook = (id) => {
+    listTitulos.map((e) => {
+      if (e.key === id) {
+        
+        alert(e.titulo)
+      }
+      
+    })
+  }
 
   return (
     <View style={styles.container}>
@@ -37,7 +52,7 @@ export default function App() {
       <View style={styles.viewLibros}>
         <FlatList
           data={listTitulos}
-          renderItem={(itemData) => {
+          renderItem={(itemData , e) => {
             const { key, titulo, page, porcentaje } = itemData.item;
             let porce = 0;
             
@@ -49,17 +64,18 @@ export default function App() {
             }
 
             return (
+              <TouchableOpacity onPress={() =>deleteBook(key) } > 
               <View style={styles.nameTitle}>
-                <Text>libro: {titulo}</Text>
+                <Text>libro: {titulo }</Text>
                 <Text>
                   paginas: {porcentaje}/{page}
-                </Text>
-                
+                </Text>  
                 <Text> porcentaje: {porce}% leido </Text>
                 <View style={styles.botonEdit}>
-                  <Button title="modificar"></Button>
+                  <Button title="modificar" onPress={() => changeBook(key)}>  </Button>
                 </View>
               </View>
+              </TouchableOpacity>
             );
           }}
         />

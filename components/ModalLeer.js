@@ -13,6 +13,8 @@ const ModalLeer = ({ showModalLeer, addBook }) => {
     setPorcentaje(0);
   };
 
+  
+
   return (
     <Modal visible={showModalLeer} animationType={"fade"} transparent={true}>
       <View style={styles.viewLeer}>
