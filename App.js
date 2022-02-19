@@ -1,48 +1,87 @@
-import { Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import { useState } from "react";
+import ModalLeer from "./components/ModalLeer";
 
 export default function App() {
-
   const [showModalLeer, setShowModalLeer] = useState(false);
-  
+  const [listTitulos, setListTitulos] = useState([]);
+
+  const addBook = (titulo, page, porcentaje) => {
+    if (titulo !== "") {
+      setListTitulos((list) => [
+        ...listTitulos,
+        { key: Math.random().toString(), titulo, page, porcentaje },
+        
+      ]);
+     
+    }
+    setShowModalLeer(false);
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.locateBotom1} onPress={() => }>  
-      <View style={styles.personalizarBotom}>
-        <Text >Libros que quiero leer</Text>     
+      <View>
+        <Button
+          title={"Libros que quiero leer"}
+          onPress={() => setShowModalLeer(true)}
+        />
       </View>
-     </TouchableOpacity>
 
-     <TouchableOpacity style={styles.locateBotom}>  
-      <View style={styles.personalizarBotom}>
-      <Text >Libros que he leido</Text>
+      <ModalLeer showModalLeer={showModalLeer} addBook={addBook} />
+      <View style={styles.viewLibros}>
+        <FlatList
+          data={listTitulos}
+          renderItem={(itemData) => {
+            const { key, titulo ,page, porcentaje } = itemData.item;
+            
+            return (
+              <View style={styles.nameTitle}>
+                <Text>libro: {titulo}</Text>
+                <Text> paginas: {page}</Text>
+                <Text> porcentaje: {porcentaje}</Text>
+                <View style={styles.botonEdit}>
+                  <Button title="editar"></Button>
+                </View>
+              </View>
+            );
+          }}
+        />
       </View>
-     </TouchableOpacity>
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "column-reverse",
+    marginTop: 40,
+    backgroundColor: "#ccc",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    height: "90%",
   },
-  personalizarBotom: {
-    backgroundColor: '#5856D6',
-    width: 70,
-    height: 40,
+
+  nameTitle: {
+    marginTop: 20,
+    height: 100,
+    width: 300,
+    backgroundColor: "orange",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderRadius: 5,
+    margin: 5,
   },
-  locateBotom: {
-    position: 'absolute',
-    bottom:10,
-    right:10
+  viewLibros: {
+    marginTop: 40,
   },
-  locateBotom1: {
-    position: 'absolute',
-    bottom:10,
-    right:100
-  }
+  botonEdit: {
+    alignItems: "flex-end",
+  },
 });
