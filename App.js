@@ -14,14 +14,13 @@ export default function App() {
   const [listTitulos, setListTitulos] = useState([]);
 
   const addBook = (titulo, page, porcentaje) => {
-    if (titulo !== "") {
+    if (titulo !== "" ) {
       setListTitulos((list) => [
         ...listTitulos,
         { key: Math.random().toString(), titulo, page, porcentaje },
-        
       ]);
-     
-    }
+    } 
+
     setShowModalLeer(false);
   };
 
@@ -39,15 +38,26 @@ export default function App() {
         <FlatList
           data={listTitulos}
           renderItem={(itemData) => {
-            const { key, titulo ,page, porcentaje } = itemData.item;
+            const { key, titulo, page, porcentaje } = itemData.item;
+            let porce = 0;
             
+            if (page === 0 && porcentaje === 0) {
+              porce = 0;
+            } else {
+              porce = (porcentaje / page) * 100;
+              porce = porce.toFixed(2);
+            }
+
             return (
               <View style={styles.nameTitle}>
                 <Text>libro: {titulo}</Text>
-                <Text> paginas: {page}</Text>
-                <Text> porcentaje: {porcentaje}</Text>
+                <Text>
+                  paginas: {porcentaje}/{page}
+                </Text>
+                
+                <Text> porcentaje: {porce}% leido </Text>
                 <View style={styles.botonEdit}>
-                  <Button title="editar"></Button>
+                  <Button title="modificar"></Button>
                 </View>
               </View>
             );

@@ -3,14 +3,14 @@ import { useState } from "react";
 
 const ModalLeer = ({ showModalLeer, addBook }) => {
   const [title, setTitle] = useState("");
-  const [page, setPage] = useState("");
-  const [porcentaje, setPorcentaje] = useState("");
+  const [page, setPage] = useState(0);
+  const [porcentaje, setPorcentaje] = useState(0);
 
   const validarTitle = () => {
     addBook(title, page, porcentaje);
     setTitle("");
-    setPage("");
-    setPorcentaje("");
+    setPage(0);
+    setPorcentaje(0);
   };
 
   return (
@@ -58,9 +58,6 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
   },
-  cerrarLeer: {
-    flex: 20,
-    alignItems: "flex-start",
-  },
+ 
 });
 export default ModalLeer;
