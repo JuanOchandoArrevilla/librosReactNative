@@ -32,8 +32,8 @@ export default function App() {
   const changeBook = (id) => {
     listTitulos.map((e) => {
       if (e.key === id) {
+        e.porcentaje = 200
         
-        alert(e.titulo)
       }
       
     })
@@ -66,11 +66,10 @@ export default function App() {
             return (
               <TouchableOpacity onPress={() =>deleteBook(key) } > 
               <View style={styles.nameTitle}>
-                <Text>libro: {titulo }</Text>
-                <Text>
-                  paginas: {porcentaje}/{page}
+                <Text  style={styles.listText}> libro: {titulo }</Text>
+                <Text style={styles.listText}> paginas: {porcentaje}/{page}
                 </Text>  
-                <Text> porcentaje: {porce}% leido </Text>
+                <Text style={styles.listText}> porcentaje: {porce}% leido </Text>
                 <View style={styles.botonEdit}>
                   <Button title="modificar" onPress={() => changeBook(key)}>  </Button>
                 </View>
@@ -95,19 +94,26 @@ const styles = StyleSheet.create({
   },
 
   nameTitle: {
+    flex: 1,
     marginTop: 20,
     height: 100,
-    width: 300,
-    backgroundColor: "orange",
-    justifyContent: "center",
-    borderWidth: 1,
+    width: 350,
+    backgroundColor: "#91BAE3",
+    borderWidth: 2,
     borderRadius: 5,
     margin: 5,
+    alignContent: "center",
   },
   viewLibros: {
     marginTop: 40,
   },
   botonEdit: {
-    alignItems: "flex-end",
+    position: "absolute",
+    marginTop:60,
+    left:250,
   },
+  listText: {
+    fontSize:18,
+    fontWeight: "bold",
+  }
 });

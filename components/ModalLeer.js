@@ -7,10 +7,18 @@ const ModalLeer = ({ showModalLeer, addBook }) => {
   const [porcentaje, setPorcentaje] = useState(0);
 
   const validarTitle = () => {
-    addBook(title, page, porcentaje);
-    setTitle("");
-    setPage(0);
-    setPorcentaje(0);
+     if (page < porcentaje) {
+      addBook(title, 0, 0);
+      setTitle("");
+      setPage(0);
+      setPorcentaje(0);
+     } else {
+      addBook(title, page, porcentaje);
+      setTitle("");
+      setPage(0);
+      setPorcentaje(0);
+     }
+   
   };
 
   
@@ -29,12 +37,14 @@ const ModalLeer = ({ showModalLeer, addBook }) => {
           placeholder="numero de paginas"
           value={page}
           onChangeText={setPage}
+          keyboardType="number-pad"
         />
         <TextInput
           style={styles.inputLeer}
           placeholder="paginas leidas"
           value={porcentaje}
           onChangeText={setPorcentaje}
+          keyboardType="number-pad"
         />
         <Button style={styles.botonLeer} title="add" onPress={validarTitle} />
       </View>
@@ -46,7 +56,7 @@ const styles = StyleSheet.create({
   inputLeer: {
     width: "10%",
     width: 200,
-    borderBottomColor: "pink",
+    borderBottomColor: "black",
     borderBottomWidth: 1,
     height: 60,
   },
@@ -55,10 +65,11 @@ const styles = StyleSheet.create({
   },
   viewLeer: {
     flexDirection: "column",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "flex-end",
     padding: 20,
     flex: 1,
+    
   },
  
 });
